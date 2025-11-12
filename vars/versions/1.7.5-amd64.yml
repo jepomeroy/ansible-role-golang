@@ -1,0 +1,3 @@
+---
+# SHA256 sum for the redistributable package go1.7.5.linux-amd64.tar.gz
+golang_redis_sha256sum: '2e4dd6c44f0693bef4e7b46cc701513d74c3cc44f2419bf519d7868b12931ac3'

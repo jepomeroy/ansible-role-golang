@@ -1,0 +1,37 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Install Python and dependencies
+      raw: |
+        set -e
+        if command -v apt-get > /dev/null; then
+          apt-get update && apt-get install -y python3 sudo systemd
+        elif command -v dnf > /dev/null; then
+          dnf install -y python3 sudo systemd which
+        elif command -v yum > /dev/null; then
+          yum install -y python3 sudo systemd
+        elif command -v zypper > /dev/null; then
+          zypper install -y python3 sudo systemd
+        fi
+      changed_when: false
+
+    - name: Fix PAM configuration for containers
+      raw: |
+        # Replace sudo PAM config with a minimal one that works in containers
+        {
+          echo '#%PAM-1.0'
+          echo 'auth       sufficient   pam_permit.so'
+          echo 'account    sufficient   pam_permit.so'
+          echo 'session    optional     pam_limits.so'
+        } > /etc/pam.d/sudo
+
+        # Configure passwordless sudo for root
+        echo 'root ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/root
+        chmod 0440 /etc/sudoers.d/root
+
+        # Ensure sudoers file allows NOPASSWD
+        grep -q 'NOPASSWD' /etc/sudoers || echo 'Defaults !authenticate' >> /etc/sudoers
+      changed_when: false

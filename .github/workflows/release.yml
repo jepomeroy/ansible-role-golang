@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+env:
+  ANSIBLE_FORCE_COLOR: "1"
+  FORCE_COLOR: "1"
+  PY_COLORS: "1"
+jobs:
+  galaxy-import:
+    name: Galaxy Import
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ vars.python_version }}
+      - name: Install Ansible
+        shell: sh
+        run: pip3 install --no-compile ansible-core
+      - name: Trigger a new import on Galaxy
+        shell: bash
+        run: |-
+          REPOSITORY='${{ inputs.github-repository }}'
+          OWNER_NAME="${REPOSITORY%%/*}"
+          REPO_NAME="${REPOSITORY#*/}"
+          [ -z '${{ secrets.GALAXY_API_KEY }}' ] && >&2 echo "ERROR: GALAXY_API_KEY is required" && exit 1
+          echo "Importing role with owner: $OWNER_NAME, repo: $REPO_NAME"
+          ansible-galaxy role import \
+          --api-key '${{ secrets.GALAXY_API_KEY }}' "$OWNER_NAME" "$REPO_NAME"

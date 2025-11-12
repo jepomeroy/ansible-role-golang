@@ -1,0 +1,34 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+role_name_check: 2
+
+platforms:
+  - name: ansible-role-golang-ubuntu-arm32
+    image: arm32v7/ubuntu:24.04
+    privileged: true
+    command: bash -c "while true; do sleep 10000; done"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+
+provisioner:
+  name: ansible
+  playbooks:
+    prepare: ../default/prepare.yml
+    converge: ../default/converge.yml
+  config_options:
+    defaults:
+      inject_facts_as_vars: false
+  inventory:
+    hosts:
+      all:
+        ansible_user: root
+
+verifier:
+  name: testinfra
+  directory: ../default/tests
