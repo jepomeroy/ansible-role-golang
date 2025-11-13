@@ -28,7 +28,7 @@ jobs:
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
-          python generate_golang_checksum_files.py
+          python .github/scripts/generate_golang_checksum_files.py
 
       - name: Check for changes
         id: check-changes
