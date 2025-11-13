@@ -10,6 +10,7 @@ role_name_check: 2
 platforms:
   - name: ansible-role-golang-ubuntu-arm64
     image: arm64v8/ubuntu:24.04
+    platform: linux/arm64
     privileged: true
     command: bash -c "while true; do sleep 10000; done"
     volumes:
