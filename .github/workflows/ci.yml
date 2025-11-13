@@ -9,6 +9,9 @@ on:
 env:
   PY_COLORS: "1"
 
+concurrency:
+  group: ci-test
+
 jobs:
   lint:
     name: Lint
@@ -22,7 +25,7 @@ jobs:
         id: setup-python
         uses: actions/setup-python@v5
         with:
-          python-version-file: ${{ vars.python_version }}
+          python-version: ${{ vars.python_version }}
 
       - name: Tox cache
         id: tox-cache
@@ -91,7 +94,7 @@ jobs:
         id: setup-python
         uses: actions/setup-python@v5
         with:
-          python-version-file: ".python-version"
+          python-version: ${{ vars.python_version }}
 
       - name: Tox cache
         id: tox-cache
