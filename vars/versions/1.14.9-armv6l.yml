@@ -1,0 +1,3 @@
+---
+# SHA256 sum for the redistributable package go1.14.9.linux-armv6l.tar.gz
+golang_redis_sha256sum: 'e85dc09608dc9fc245ebc5daea0826898ac0eb0d48ed24e2300427850876c442'
