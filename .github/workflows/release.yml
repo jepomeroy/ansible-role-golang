@@ -1,33 +1,226 @@
-name: Release
+name: Tag and Release
 
 on:
-  release:
-    types:
-      - published
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - .github/**
+      - .gitignore
+      - LICENSE
+      - README.md
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: write
 
 env:
   ANSIBLE_FORCE_COLOR: "1"
   FORCE_COLOR: "1"
   PY_COLORS: "1"
+
+# Only one release at a time
+concurrency:
+  group: tag-and-release
+
 jobs:
-  galaxy-import:
-    name: Galaxy Import
-    runs-on: ubuntu-24.04
+  tag-and-release:
+    name: Tag and Release
+    runs-on: ubuntu-latest
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          python-version: ${{ vars.python_version }}
-      - name: Install Ansible
-        shell: sh
-        run: pip3 install --no-compile ansible-core
-      - name: Trigger a new import on Galaxy
-        shell: bash
-        run: |-
-          REPOSITORY='${{ inputs.github-repository }}'
-          OWNER_NAME="${REPOSITORY%%/*}"
-          REPO_NAME="${REPOSITORY#*/}"
-          [ -z '${{ secrets.GALAXY_API_KEY }}' ] && >&2 echo "ERROR: GALAXY_API_KEY is required" && exit 1
-          echo "Importing role with owner: $OWNER_NAME, repo: $REPO_NAME"
-          ansible-galaxy role import \
-          --api-key '${{ secrets.GALAXY_API_KEY }}' "$OWNER_NAME" "$REPO_NAME"
+          fetch-depth: 0 # Fetch all history for semver and changelog
+
+      - name: Make Next Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          majorList: release,rel
+          minorList: feature,feat
+          patchList: fix,test,chore,doc,docs,build
+          token: ${{ github.token }}
+          branch: main
+
+      - name: Tag
+        run: |
+          git tag ${{ steps.semver.outputs.next }}
+          git push --tags
+
+      - name: Generate version changelog
+        id: generate-changelog
+        run: |
+          # Get the current tag and previous tag
+          CURRENT_TAG="${{ steps.semver.outputs.next }}"
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 "$CURRENT_TAG^" 2>/dev/null || echo "")
+
+          echo "Current tag: $CURRENT_TAG"
+          echo "Previous tag: $PREVIOUS_TAG"
+
+          # Initialize changelog content
+          CHANGELOG="## Go SDK Versions\n\n"
+
+          if [ -z "$PREVIOUS_TAG" ]; then
+            # First release - list all versions
+            echo "First release detected - listing all versions"
+            CHANGELOG+="### All Supported Versions\n\n"
+
+            # Get all version files and extract versions
+            for file in vars/versions/*.yml; do
+              if [ -f "$file" ]; then
+                basename "$file" | sed 's/\.yml$//'
+              fi
+            done | sort -V | while read version; do
+              CHANGELOG+="- \`${version}\`\n"
+            done
+          else
+            # Compare with previous release
+            echo "Comparing with previous release"
+
+            # Find new versions (files that exist now but didn't before)
+            NEW_VERSIONS=()
+            UPDATED_VERSIONS=()
+
+            for file in vars/versions/*.yml; do
+              if [ -f "$file" ]; then
+                filename=$(basename "$file")
+                version="${filename%.yml}"
+
+                # Check if file existed in previous tag
+                if ! git show "$PREVIOUS_TAG:vars/versions/$filename" > /dev/null 2>&1; then
+                  NEW_VERSIONS+=("$version")
+                else
+                  # Check if content changed
+                  if ! git diff --quiet "$PREVIOUS_TAG" "$CURRENT_TAG" -- "$file"; then
+                    UPDATED_VERSIONS+=("$version")
+                  fi
+                fi
+              fi
+            done
+
+            # Add new versions to changelog
+            if [ ${#NEW_VERSIONS[@]} -gt 0 ]; then
+              CHANGELOG+="### New Versions Added\n\n"
+              printf '%s\n' "${NEW_VERSIONS[@]}" | sort -V | while read version; do
+                CHANGELOG+="- \`${version}\`\n"
+              done
+              CHANGELOG+="\n"
+            fi
+
+            # Add updated versions to changelog
+            if [ ${#UPDATED_VERSIONS[@]} -gt 0 ]; then
+              CHANGELOG+="### Versions Updated (checksum changes)\n\n"
+              printf '%s\n' "${UPDATED_VERSIONS[@]}" | sort -V | while read version; do
+                CHANGELOG+="- \`${version}\`\n"
+              done
+              CHANGELOG+="\n"
+            fi
+
+            # If no changes, note that
+            if [ ${#NEW_VERSIONS[@]} -eq 0 ] && [ ${#UPDATED_VERSIONS[@]} -eq 0 ]; then
+              CHANGELOG+="No Go SDK version changes in this release.\n\n"
+            fi
+
+            # Add summary
+            CHANGELOG+="### Summary\n\n"
+            CHANGELOG+="- **New versions**: ${#NEW_VERSIONS[@]}\n"
+            CHANGELOG+="- **Updated versions**: ${#UPDATED_VERSIONS[@]}\n"
+          fi
+
+          # Save to file
+          echo -e "$CHANGELOG" > release-changelog.md
+          cat release-changelog.md
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          generateReleaseNotes: true
+          name: ${{ steps.semver.outputs.next }}
+          tag: ${{ steps.semver.outputs.next }}
+          token: ${{ github.token }}
+          bodyFile: release-changelog.md
+
+      - name: Update CHANGELOG.md
+        run: |
+          # Get release information
+          RELEASE_TAG="${{ steps.semver.outputs.next }}"
+          RELEASE_DATE=$(date +%Y-%m-%d)
+
+          # Create or update CHANGELOG.md
+          if [ ! -f CHANGELOG.md ]; then
+            echo "# Changelog" > CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            echo "All notable changes to this project will be documented in this file." >> CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            echo "The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)." >> CHANGELOG.md
+            echo "" >> CHANGELOG.md
+          fi
+
+          # Prepare new entry with both auto-generated notes and version changelog
+          {
+            echo "## [$RELEASE_TAG] - $RELEASE_DATE"
+            echo ""
+            echo "### Changes"
+            echo ""
+            git log $(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD --pretty=format:"- %s" 2>/dev/null || echo "- Initial release"
+            echo ""
+            echo ""
+            cat release-changelog.md
+            echo ""
+          } > new-entry.md
+
+          # Insert new entry after the header
+          if grep -q "^## \[" CHANGELOG.md; then
+            # Create temp file with new entry inserted
+            awk '/^## \[/{if(!inserted){system("cat new-entry.md"); inserted=1}} 1' CHANGELOG.md > CHANGELOG.tmp
+            mv CHANGELOG.tmp CHANGELOG.md
+          else
+            # Append to end of file
+            cat new-entry.md >> CHANGELOG.md
+          fi
+
+          cat CHANGELOG.md
+
+      - name: Commit CHANGELOG
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add CHANGELOG.md
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "docs: update CHANGELOG for ${{ steps.semver.outputs.next }}"
+            git push origin HEAD:main
+          fi
+
+  # galaxy-import:
+  #   name: Galaxy Import
+  #   runs-on: ubuntu-24.04
+  #   needs: tag-and-release
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: ${{ vars.python-version }}
+
+  #     - name: Install Ansible
+  #       shell: sh
+  #       run: pip3 install --no-compile ansible-core
+
+  #     - name: Trigger a new import on Galaxy
+  #       shell: bash
+  #       run: |-
+  #         REPOSITORY="${{ github.repository }}"
+  #         OWNER_NAME="${REPOSITORY%%/*}"
+  #         REPO_NAME="${REPOSITORY#*/}"
+  #         [ -z '${{ secrets.GALAXY_API_KEY }}' ] && >&2 echo "ERROR: GALAXY_API_KEY is required" && exit 1
+  #         echo "Importing role with owner: $OWNER_NAME, repo: $REPO_NAME"
+  #         ansible-galaxy role import \
+  # --api-key '${{ secrets.GALAXY_API_KEY }}' "$OWNER_NAME" "$REPO_NAME"

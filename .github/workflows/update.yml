@@ -1,0 +1,89 @@
+name: Check for updates
+
+on:
+  schedule:
+    - cron: "0 0 * * 6" # Every Saturday at 00:00
+  workflow_dispatch:
+
+jobs:
+  check-updates:
+    name: Check for dependency updates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ vars.python-version || '3.10' }}
+
+      - name: Generate golang checksum files
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          python generate_golang_checksum_files.py
+
+      - name: Check for changes
+        id: check-changes
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in checksum files"
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          fi
+
+      - name: Create Pull Request
+        if: steps.check-changes.outputs.has_changes == 'true'
+        run: |
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Create a new branch with timestamp
+          BRANCH_NAME="update-golang-checksums-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH_NAME"
+
+          # Add and commit changes
+          git add vars/versions/*.yml
+
+          # Count new and modified files for commit message
+          NEW_FILES=$(git diff --cached --name-only --diff-filter=A | wc -l)
+          MODIFIED_FILES=$(git diff --cached --name-only --diff-filter=M | wc -l)
+
+          # Determine commit type: feat for new versions, fix for updates
+          if [ "$NEW_FILES" -gt 0 ]; then
+            COMMIT_TYPE="feat"
+          else
+            COMMIT_TYPE="fix"
+          fi
+
+          # Generate and use commit message
+          COMMIT_MSG=$(bash .github/scripts/generate-commit-message.sh "$COMMIT_TYPE" "$NEW_FILES" "$MODIFIED_FILES")
+          git commit -m "$COMMIT_MSG"
+
+          # Extract just the title for PR (first line of commit message)
+          COMMIT_TITLE=$(echo "$COMMIT_MSG" | head -n 1)
+
+          # Push the branch
+          git push origin "$BRANCH_NAME"
+
+          # Generate PR body using script
+          PR_BODY=$(bash .github/scripts/generate-pr-body.sh "$NEW_FILES" "$MODIFIED_FILES")
+
+          # Create pull request using GitHub CLI
+          gh pr create \
+            --title "$COMMIT_TITLE" \
+            --body "$PR_BODY" \
+            --head "$BRANCH_NAME" \
+            --base main
+        env:
+          GH_TOKEN: ${{ github.token }}
