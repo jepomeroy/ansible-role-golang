@@ -134,7 +134,7 @@ jobs:
           cat release-changelog.md
 
       - name: Create Release
-        uses: ncipollo/release-action@v1.14.0
+        uses: ncipollo/release-action@v1.20.0
         with:
           generateReleaseNotes: true
           name: ${{ steps.semver.outputs.next }}
