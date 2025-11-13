@@ -1,4 +1,3 @@
-import json
 from typing import List
 
 import requests
@@ -58,7 +57,7 @@ def get_versions(url: str) -> dict | None:
         response = requests.get(url)
 
         if response.status_code == 200:
-            return json.loads(response.json())
+            return response.json()
         else:
             print(f"Error: {response.status_code}")
             return None
@@ -72,8 +71,7 @@ def make_files(files: list[dict]) -> list[File]:
     f_arr = []
 
     for file in files:
-        if (file["os"] == "linux" and
-                file["arch"] in ["amd64", "arm64", "armv6l"]):
+        if file["os"] == "linux" and file["arch"] in ["amd64", "arm64", "armv6l"]:
             f_arr.append(File(file))
 
     return f_arr
