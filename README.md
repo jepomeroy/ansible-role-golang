@@ -1,11 +1,9 @@
 # Ansible Role: Go language SDK
 
-[![Tests](https://github.com/jpomeroy/ansible-role-golang/workflows/Tests/badge.svg)](https://github.com/jpomeroy/ansible-role-golang/actions?query=workflow%3ATests)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jpomeroy/ansible-role-golang/main/LICENSE)
+[![CI Tests](https://github.com/jepomeroy/ansible-role-golang/workflows/ci.yml/badge.svg)](https://github.com/jepomeroy/ansible-role-golang/actions?query=workflow:ci.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jepomeroy/ansible-role-golang/main/LICENSE)
 
 Role to download and install the [Go language SDK](https://golang.org/).
-
-**Note:** This project is wholly inspired by and based on the excellent work by [GantSign Ltd.](https://github.com/gantsign/ansible-role-golang) and John Freeman. See the [Acknowledgments](#acknowledgments) section for more details.
 
 ## Requirements
 
@@ -72,11 +70,11 @@ golang_redis_sha256sum: "6e3e9c949ab4695a204f74038717aa7b2689b1be94875899ac1b3fe
 ```yaml
 - hosts: servers
   roles:
-    - role: jpomeroy.golang
+    - role: jepomeroy.golang
       golang_gopath: "$HOME/workspace-go"
 ```
 
-**Note:** If you're migrating from the original GantSign role, simply update the role name from `gantsign.golang` to `jpomeroy.golang` in your playbooks.
+**Note:** If you're migrating from the original GantSign role, simply update the role name from `gantsign.golang` to `jepomeroy.golang` in your playbooks.
 
 ## Role Facts
 
