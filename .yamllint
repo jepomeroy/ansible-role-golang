@@ -36,3 +36,4 @@ rules:
 ignore: |
   .tox/
   .venv/
+  venv/

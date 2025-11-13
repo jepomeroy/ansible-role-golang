@@ -3,3 +3,4 @@ skip_list:
 exclude_paths:
   - .tox/
   - .venv/
+  - venv/
