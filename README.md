@@ -1,6 +1,6 @@
 # Ansible Role: Go language SDK
 
-[![CI Tests](https://github.com/jepomeroy/ansible-role-golang/workflows/ci.yml/badge.svg)](https://github.com/jepomeroy/ansible-role-golang/actions?query=workflow:ci.yml)
+[![CI Tests](https://github.com/jepomeroy/ansible-role-golang/actions/workflows/ci.yml/badge.svg)](https://github.com/jepomeroy/ansible-role-golang/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jepomeroy/ansible-role-golang/main/LICENSE)
 
 Role to download and install the [Go language SDK](https://golang.org/).
