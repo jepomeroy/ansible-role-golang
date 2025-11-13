@@ -8,7 +8,7 @@ ansible-compat==24.5.1
     # via
     #   ansible-lint
     #   molecule
-ansible-core==2.15.9
+ansible-core==2.16.14rc1
     # via
     #   -r ansible-max.in
     #   ansible-compat
@@ -46,7 +46,7 @@ click-help-colors==0.9.4
     # via molecule
 colorama==0.4.6
     # via tox
-cryptography==42.0.7
+cryptography==44.0.1
     # via ansible-core
 distlib==0.3.8
     # via virtualenv
@@ -63,13 +63,13 @@ filelock==3.14.0
     #   ansible-lint
     #   tox
     #   virtualenv
-flake8==4.0.1
+flake8==7.3.0
     # via -r lint.in
 idna==3.7
     # via requests
 iniconfig==2.0.0
     # via pytest
-jinja2==3.1.4
+jinja2==3.1.6
     # via
     #   ansible-core
     #   molecule
@@ -84,7 +84,7 @@ markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.5
     # via jinja2
-mccabe==0.6.1
+mccabe==0.7.0
     # via flake8
 mdurl==0.1.2
     # via markdown-it-py
@@ -124,11 +124,11 @@ pluggy==1.5.0
     #   molecule
     #   pytest
     #   tox
-pycodestyle==2.8.0
+pycodestyle==2.14.0
     # via flake8
 pycparser==2.22
     # via cffi
-pyflakes==2.4.0
+pyflakes==3.4.0
     # via flake8
 pygments==2.18.0
     # via rich
@@ -153,7 +153,7 @@ referencing==0.35.1
     # via
     #   jsonschema
     #   jsonschema-specifications
-requests==2.32.2
+requests==2.32.4
     # via
     #   docker
     #   molecule-plugins
@@ -189,11 +189,11 @@ tox==4.5.1
     # via -r tox.in
 typing-extensions==4.12.0
     # via black
-urllib3==2.2.2
+urllib3==2.5.0
     # via
     #   docker
     #   requests
-virtualenv==20.26.2
+virtualenv==20.26.6
     # via tox
 wcmatch==8.5.2
     # via
