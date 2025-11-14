@@ -5,32 +5,46 @@
 
 Role to download and install the [Go language SDK](https://golang.org/).
 
+## Why Use This Role?
+
+- 🔐 **Pre-Configured Checksums**: Over 800 pre-verified SHA256 checksums for Go versions 1.2.2 through 1.24.10, eliminating manual verification steps
+- 🏗️ **Multi-Architecture Support**: Built-in support for amd64, arm64, and armv6l architectures
+- 🤖 **Automated Updates**: Weekly automated checks for new Go releases with automatic PR creation
+- 🌍 **Cross-Platform Compatibility**: Tested and verified across Debian, Ubuntu, Rocky Linux, Fedora, and openSUSE distributions
+- 🔄 **Version Flexibility**: Easily switch between Go versions or maintain multiple installations side-by-side
+- ⚡ **Zero Manual Downloads**: Automatically fetches and verifies Go SDK packages from official mirrors
+- ✅ **Idempotent & Safe**: Ansible-native implementation ensures safe, repeatable installations
+
 ## Requirements
 
 - Ansible Core >= 2.12
 
-- Linux Distribution
-  - Debian Family
-    - Debian
-      - Bullseye (11)
-      - Trixie (13)
+- Linux Distribution (see tested versions below)
 
-    - Ubuntu
-      - Jammy (22.04)
-      - Noble (24.04)
+### Tested Linux Distributions
 
-  - RedHat Family
-    - Rocky Linux
-      - 9
+| Family | Distribution | Versions |
+|--------|--------------|----------|
+| Debian | Debian | Bullseye (11), Trixie (13) |
+| Debian | Ubuntu | Jammy (22.04), Noble (24.04) |
+| RedHat | Rocky Linux | 9 |
+| RedHat | Fedora | 41 |
+| SUSE | openSUSE | 15.6 |
 
-    - Fedora
-      - 41
+> **Note**: Other versions are likely to work but have not been tested.
 
-  - SUSE Family
-    - openSUSE
-      - 15.6
+## Supported Go Versions
 
-  - Note: other versions are likely to work but have not been tested.
+This role includes pre-configured checksums for the following Go SDK versions (latest patch for each minor version):
+
+<!-- BEGIN GO VERSIONS -->
+1.24.10, 1.23.12, 1.22.12, 1.21.13, 1.20.14, 1.19.13, 
+1.18.10, 1.17.13, 1.16.15, 1.15.15, 1.14.15, 1.13.15, 
+1.12.17, 1.11.13, 1.10.8, 1.9.7, 1.8.7, 1.7.6, 
+1.6.4, 1.5.4, 1.4.3, 1.3.3, 1.2.2
+<!-- END GO VERSIONS -->
+
+For a complete list of all supported versions and architectures, see the [vars/versions](vars/versions) directory.
 
 ## Role Variables
 
