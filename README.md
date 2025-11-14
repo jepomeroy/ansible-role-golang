@@ -2,6 +2,7 @@
 
 [![CI Tests](https://github.com/jepomeroy/ansible-role-golang/actions/workflows/ci.yml/badge.svg)](https://github.com/jepomeroy/ansible-role-golang/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jepomeroy/ansible-role-golang/main/LICENSE)
+[![Changelog](https://img.shields.io/badge/changelog-CHANGELOG.md-blue.svg)](CHANGELOG.md)
 
 Role to download and install the [Go language SDK](https://golang.org/).
 
