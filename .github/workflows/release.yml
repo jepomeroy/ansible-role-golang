@@ -46,14 +46,14 @@ jobs:
 
       - name: Tag
         run: |
-          git tag ${{ steps.semver.outputs.next }}
+          git tag ${{ steps.semver.outputs.nextStrict }}
           git push --tags
 
       - name: Generate version changelog
         id: generate-changelog
         run: |
           # Get the current tag and previous tag
-          CURRENT_TAG="${{ steps.semver.outputs.next }}"
+          CURRENT_TAG="${{ steps.semver.outputs.nextStrict }}"
           PREVIOUS_TAG=$(git describe --tags --abbrev=0 "$CURRENT_TAG^" 2>/dev/null || echo "")
 
           echo "Current tag: $CURRENT_TAG"
@@ -137,15 +137,15 @@ jobs:
         uses: ncipollo/release-action@v1.20.0
         with:
           generateReleaseNotes: true
-          name: ${{ steps.semver.outputs.next }}
-          tag: ${{ steps.semver.outputs.next }}
+          name: ${{ steps.semver.outputs.nextStrict }}
+          tag: ${{ steps.semver.outputs.nextStrict }}
           token: ${{ github.token }}
           bodyFile: release-changelog.md
 
       - name: Update CHANGELOG.md
         run: |
           # Get release information
-          RELEASE_TAG="${{ steps.semver.outputs.next }}"
+          RELEASE_TAG="${{ steps.semver.outputs.nextStrict }}"
           RELEASE_DATE=$(date +%Y-%m-%d)
 
           # Create or update CHANGELOG.md
@@ -193,7 +193,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "docs: update CHANGELOG for ${{ steps.semver.outputs.next }}"
+            git commit -m "docs: update CHANGELOG for ${{ steps.semver.outputs.nextStrict }}"
             git push origin HEAD:main
           fi
 
@@ -208,7 +208,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install Ansible
         shell: sh
