@@ -8,7 +8,7 @@ Role to download and install the [Go language SDK](https://golang.org/).
 
 ## Why Use This Role?
 
-- 🔐 **Pre-Configured Checksums**: Over 800 pre-verified SHA256 checksums for Go versions 1.2.2 through 1.24.10, eliminating manual verification steps
+- 🔐 **Pre-Configured Checksums**: Over 800 pre-verified SHA256 checksums for Go versions 1.2.2 through up to the latest stable release, eliminating manual verification steps
 - 🏗️ **Multi-Architecture Support**: Built-in support for amd64, arm64, and armv6l architectures
 - 🤖 **Automated Updates**: Weekly automated checks for new Go releases with automatic PR creation
 - 🌍 **Cross-Platform Compatibility**: Tested and verified across Debian, Ubuntu, Rocky Linux, Fedora, and openSUSE distributions
