@@ -36,7 +36,8 @@ jobs:
       - name: Check for changes
         id: check-changes
         run: |
-          if [[ -n $(git status --porcelain) ]]; then
+          # Only check for changes in the files we care about
+          if [[ -n $(git status --porcelain vars/versions/*.yml README.md) ]]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "Changes detected in checksum files"
           else
