@@ -4,7 +4,7 @@
 golang_version: '1.22.6'
 
 # Mirror to download the Go language SDK redistributable package from
-golang_mirror: 'https://storage.googleapis.com/golang'
+golang_mirror: 'https://dl.google.com/go'
 
 # Base installation directory the Go language SDK distribution
 golang_install_dir: '/opt/go/{{ golang_version }}'
