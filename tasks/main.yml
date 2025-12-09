@@ -36,6 +36,27 @@
     mode: 'u=rw,go=r'
   when: not ansible_check_mode
 
+- name: Check for existing Go installations
+  become: true
+  ansible.builtin.find:
+    paths: "{{ golang_install_dir | dirname }}"
+    file_type: directory
+    patterns: "*"
+  register: golang_existing_installations
+  when: not ansible_check_mode
+
+- name: Remove old Go versions
+  become: true
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ golang_existing_installations.files | default([]) }}"
+  when:
+    - not ansible_check_mode
+    - item.path != golang_install_dir
+  loop_control:
+    label: "{{ item.path }}"
+
 - name: Create Go language SDK installation directory
   become: true
   ansible.builtin.file:

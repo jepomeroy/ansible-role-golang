@@ -1,0 +1,48 @@
+---
+# Test playbook to verify version replacement
+- name: Test Go version replacement
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install Go 1.25.4 first
+      ansible.builtin.include_role:
+        name: jepomeroy.golang
+      vars:
+        golang_version: "1.25.4"
+
+    - name: Verify 1.25.4 is installed
+      ansible.builtin.stat:
+        path: /opt/go/1.25.4/bin/go
+      register: go_1_25_4
+
+    - name: Show 1.25.4 status
+      ansible.builtin.debug:
+        msg: "Go 1.25.4 exists: {{ go_1_25_4.stat.exists }}"
+
+    - name: Upgrade to Go 1.25.5
+      ansible.builtin.include_role:
+        name: jepomeroy.golang
+      vars:
+        golang_version: "1.25.5"
+
+    - name: Verify 1.25.4 was removed
+      ansible.builtin.stat:
+        path: /opt/go/1.25.4
+      register: go_1_25_4_after
+
+    - name: Verify 1.25.5 is installed
+      ansible.builtin.stat:
+        path: /opt/go/1.25.5/bin/go
+      register: go_1_25_5
+
+    - name: Show results
+      ansible.builtin.debug:
+        msg:
+          - "Old version (1.25.4) removed: {{ not go_1_25_4_after.stat.exists }}"
+          - "New version (1.25.5) installed: {{ go_1_25_5.stat.exists }}"
+
+    - name: Fail if old version still exists
+      ansible.builtin.fail:
+        msg: "Old Go version was not removed!"
+      when: go_1_25_4_after.stat.exists
