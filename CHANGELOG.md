@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.5.0] - 2026-01-17
+
+### Changes
+
+- Merge pull request #17 from jepomeroy/update-golang-checksums-20260117-002615
+- feat: add Go version checksums
+- Merge pull request #15 from jepomeroy/dependabot/github_actions/actions/cache-5
+- chore(deps): bump actions/cache from 4 to 5
+- docs: update CHANGELOG for 0.4.0
+
+## Go SDK Versions
+
+### New Versions Added
+
+
+### Summary
+
+- **New versions**: 6
+- **Updated versions**: 0
+
+
 ## [0.4.0] - 2025-12-07
 
 ### Changes
