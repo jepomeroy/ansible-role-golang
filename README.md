@@ -39,10 +39,11 @@ Role to download and install the [Go language SDK](https://golang.org/).
 This role includes pre-configured checksums for the following Go SDK versions (latest patch for each minor version):
 
 <!-- BEGIN GO VERSIONS -->
-1.25.7, 1.24.13, 1.23.12, 1.22.12, 1.21.13, 1.20.14, 
-1.19.13, 1.18.10, 1.17.13, 1.16.15, 1.15.15, 1.14.15, 
-1.13.15, 1.12.17, 1.11.13, 1.10.8, 1.9.7, 1.8.7, 
-1.7.6, 1.6.4, 1.5.4, 1.4.3, 1.3.3, 1.2.2
+1.26.0, 1.25.7, 1.24.13, 1.23.12, 1.22.12, 1.21.13, 
+1.20.14, 1.19.13, 1.18.10, 1.17.13, 1.16.15, 1.15.15, 
+1.14.15, 1.13.15, 1.12.17, 1.11.13, 1.10.8, 1.9.7, 
+1.8.7, 1.7.6, 1.6.4, 1.5.4, 1.4.3, 1.3.3, 
+1.2.2
 <!-- END GO VERSIONS -->
 
 For a complete list of all supported versions and architectures, see the [vars/versions](vars/versions) directory.
