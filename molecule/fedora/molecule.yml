@@ -9,7 +9,7 @@ role_name_check: 2
 
 platforms:
   - name: ansible-role-golang-fedora
-    image: fedora:41
+    image: fedora:43
     privileged: true
     command: bash -c "while true; do sleep 10000; done"
     volumes:
