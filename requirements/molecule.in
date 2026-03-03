@@ -1,5 +1,4 @@
-molecule==6.0.3
+molecule
 molecule-plugins[docker]
-# Workarround for: https://github.com/pytest-dev/pytest/issues/12034
-pytest<8
+pytest
 pytest-testinfra
