@@ -26,11 +26,11 @@ Role to download and install the [Go language SDK](https://golang.org/).
 
 | Family | Distribution | Versions |
 |--------|--------------|----------|
-| Debian | Debian | Bullseye (11), Trixie (13) |
+| Debian | Debian | Bookworm (12), Trixie (13) |
 | Debian | Ubuntu | Jammy (22.04), Noble (24.04) |
 | RedHat | Rocky Linux | 9 |
-| RedHat | Fedora | 41 |
-| SUSE | openSUSE | 15.6 |
+| RedHat | Fedora | 43 |
+| SUSE | openSUSE | 16.0 |
 
 > **Note**: Other versions are likely to work but have not been tested.
 
