@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.7.1] - 2026-03-03
+
+### Changes
+
+- Merge pull request #20 from jepomeroy/update-linux-test-versions
+- chore: unpinned ansible and fixes for openSUSE tests
+- chore: updating linux test versions
+- docs: update CHANGELOG for 0.7.0
+- chore(deps): bump filelock
+
+## Go SDK Versions
+
+No Go SDK version changes in this release.
+
+### Summary
+
+- **New versions**: 0
+- **Updated versions**: 0
+
+
 ## [0.7.0] - 2026-02-14
 
 ### Changes
