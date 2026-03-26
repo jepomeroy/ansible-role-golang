@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.8.1] - 2026-03-26
+
+### Changes
+
+- Merge pull request #25 from jepomeroy/dependabot/pip/requirements/pip-aa7cb66ac2
+- chore(deps): bump requests
+- Merge pull request #24 from jepomeroy/dependabot/github_actions/ncipollo/release-action-1.21.0
+- chore(deps): bump ncipollo/release-action from 1.20.0 to 1.21.0
+- Merge pull request #23 from jepomeroy/dependabot/github_actions/docker/setup-qemu-action-4
+- docs: update CHANGELOG for 0.8.0
+- chore(deps): bump docker/setup-qemu-action from 3 to 4
+
+## Go SDK Versions
+
+No Go SDK version changes in this release.
+
+### Summary
+
+- **New versions**: 0
+- **Updated versions**: 0
+
+
 ## [0.8.0] - 2026-03-10
 
 ### Changes
