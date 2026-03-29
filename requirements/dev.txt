@@ -46,7 +46,7 @@ click-help-colors==0.9.4
     # via molecule
 colorama==0.4.6
     # via tox
-cryptography==46.0.5
+cryptography==46.0.6
     # via ansible-core
 distlib==0.3.8
     # via virtualenv
