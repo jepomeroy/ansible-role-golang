@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.8.2] - 2026-03-30
+
+### Changes
+
+- Merge pull request #26 from jepomeroy/dependabot/pip/requirements/pip-6ba9ca5f64
+- chore(deps): bump cryptography
+- docs: update CHANGELOG for 0.8.1
+
+## Go SDK Versions
+
+No Go SDK version changes in this release.
+
+### Summary
+
+- **New versions**: 0
+- **Updated versions**: 0
+
+
 ## [0.8.1] - 2026-03-26
 
 ### Changes
