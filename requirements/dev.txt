@@ -130,12 +130,14 @@ pycparser==2.22
 pyflakes==3.4.0
     # via flake8
 pygments==2.18.0
-    # via rich
+    # via
+    #   pytest
+    #   rich
 pyproject-api==1.6.1
     # via tox
 pyproject-hooks==1.1.0
     # via build
-pytest==7.4.4
+pytest==9.0.3
     # via
     #   -r molecule.in
     #   pytest-testinfra
