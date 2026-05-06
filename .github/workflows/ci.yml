@@ -70,6 +70,8 @@ jobs:
           - debian-min
           - default
           - ubuntu-min
+          - ubuntu-max
+          - ubuntu-default-go-eol
           - fedora
           - opensuse
         include:

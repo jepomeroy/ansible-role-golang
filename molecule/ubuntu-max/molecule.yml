@@ -9,7 +9,7 @@ role_name_check: 2
 
 platforms:
   - name: ansible-role-golang-ubuntu-max
-    image: ubuntu:24.04
+    image: ubuntu:26.04
     privileged: true
     command: bash -c "while true; do sleep 10000; done"
     volumes:
@@ -19,7 +19,8 @@ platforms:
 provisioner:
   name: ansible
   playbooks:
-    prepare: prepare.yml
+    prepare: ../default/prepare.yml
+    converge: ../default/converge.yml
   config_options:
     defaults:
       inject_facts_as_vars: false
@@ -30,3 +31,4 @@ provisioner:
 
 verifier:
   name: testinfra
+  directory: ../default/tests

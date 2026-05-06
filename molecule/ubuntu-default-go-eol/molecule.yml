@@ -8,7 +8,7 @@ driver:
 role_name_check: 2
 
 platforms:
-  - name: ansible-role-golang-ubuntu-max-go-eol
+  - name: ansible-role-golang-ubuntu-default-go-eol
     image: ubuntu:24.04
     privileged: true
     command: bash -c "while true; do sleep 10000; done"

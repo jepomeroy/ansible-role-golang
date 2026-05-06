@@ -11,8 +11,7 @@ galaxy_info:
         - "9"
     - name: Ubuntu
       versions:
-        - jammy
-        - noble
+        - all
     - name: Debian
       versions:
         - bookworm
