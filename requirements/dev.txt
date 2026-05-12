@@ -181,7 +181,7 @@ subprocess-tee==0.4.1
     #   ansible-lint
 tox==4.5.1
     # via -r tox.in
-urllib3==2.6.3
+urllib3==2.7.0
     # via
     #   docker
     #   requests
