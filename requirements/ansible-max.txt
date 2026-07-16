@@ -8,9 +8,9 @@ ansible-compat==25.12.1 \
     --hash=sha256:509a42fbfc65acad90b4e62c311ec0b37447e497b9b2a19cc38a625e458f2afd \
     --hash=sha256:9246bef1b8d89bdd18cc1f07d2711dcc6e09daf51f6e15880415dd4312d788f1
     # via molecule
-ansible-core==2.20.3 \
-    --hash=sha256:38670ab2d2ffd67ee7e9e562f7c94e0927c8b7b4b0eb69233bc008c29e32d591 \
-    --hash=sha256:7fe2da953192cac5d5eb37bfc984bf9339daa252e0e3d1deb5526eb1f8be9f7f
+ansible-core==2.16.19rc1 \
+    --hash=sha256:244515dafcd664e1941c2946a90257cde0796b6cc34b5746a5ab66f773ed1e35 \
+    --hash=sha256:e27af2f961c2440240946239b9e55d80d27fb32458132214ac865b8548283e8f
     # via
     #   -r ansible-max.in
     #   ansible-compat
@@ -554,9 +554,9 @@ requests==2.33.0 \
     # via
     #   docker
     #   molecule-plugins
-resolvelib==1.2.1 \
-    --hash=sha256:7d08a2022f6e16ce405d60b68c390f054efcfd0477d4b9bd019cc941c28fad1c \
-    --hash=sha256:fb06b66c8da04172d9e72a21d7d06186d8919e32ae5ab5cdf5b9d920be805ac2
+resolvelib==1.0.1 \
+    --hash=sha256:04ce76cbd63fded2078ce224785da6ecd42b9564b1390793f64ddecbe997b309 \
+    --hash=sha256:d2da45d1a8dfee81bdd591647783e340ef3bcb104b54c383f70d422ef5cc7dbf
     # via ansible-core
 rich==14.3.3 \
     --hash=sha256:793431c1f8619afa7d3b52b2cdec859562b950ea0d4b6b505397612db8d5362d \
