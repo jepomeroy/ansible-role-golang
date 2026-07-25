@@ -8,9 +8,9 @@ ansible-compat==24.5.1 \
     --hash=sha256:433fcc2212de13dd852c900bf17a70234847a1fe7b8edbea969cf321d5ad7841 \
     --hash=sha256:8d6dad5b99e87faa82569c2aaa57dd28f07931657a9e56ff2a7fd0e2127cce29
     # via molecule
-ansible-core==2.16.14rc1 \
-    --hash=sha256:731fdd4d1bd8a20cebd7c919006582983a2397df5dea7b24056e08acf5c14ab3 \
-    --hash=sha256:9957e880fdb2685aece141d50f21d62acabd6a984fa75948fb32a9d2b50d4eed
+ansible-core==2.16.19rc1 \
+    --hash=sha256:244515dafcd664e1941c2946a90257cde0796b6cc34b5746a5ab66f773ed1e35 \
+    --hash=sha256:e27af2f961c2440240946239b9e55d80d27fb32458132214ac865b8548283e8f
     # via
     #   ansible-compat
     #   molecule
