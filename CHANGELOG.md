@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.14.0] - 2026-08-21
+
+### Changes
+
+- Merge pull request #43 from jepomeroy/uv-update
+- feat: updating testing use UV, updated requirements files, and min/max ansible versions
+- docs: update CHANGELOG for 0.13.0
+
+## Go SDK Versions
+
+No Go SDK version changes in this release.
+
+### Summary
+
+- **New versions**: 0
+- **Updated versions**: 0
+
+
 ## [0.13.0] - 2026-08-16
 
 ### Changes
