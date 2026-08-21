@@ -1,3 +1,4 @@
 ansible-lint
+black>=26.3.1
 flake8>=7.0.0
 yamllint==1.35.1
