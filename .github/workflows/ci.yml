@@ -24,12 +24,11 @@ jobs:
         with:
           python-version: ${{ vars.python_version }}
 
-      - name: Tox cache
-        id: tox-cache
-        uses: actions/cache@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.0.1
         with:
-          path: ~/.cache/pip
-          key: tox-${{ hashFiles('requirements/tox.txt') }}-py${{ steps.setup-python.outputs.python-version}}
+          enable-cache: true
+          cache-dependency-glob: requirements/tox.txt
 
       - name: Lint cache
         id: lint-cache
@@ -39,7 +38,7 @@ jobs:
           key: lint-${{ hashFiles('requirements/lint.txt') }}-py${{ steps.setup-python.outputs.python-version}}
 
       - name: Install tox
-        run: pip3 install --no-compile -r requirements/tox.txt
+        run: uv pip install --system --no-compile -r requirements/tox.txt
 
       - name: Lint
         run: tox --colored=yes run -e lint
@@ -47,10 +46,6 @@ jobs:
       - name: Compact lint cache
         if: steps.lint-cache.outputs.cache-hit != 'true'
         run: find .tox -name '__pycache__' -exec rm -rf {} +
-
-      - name: Compact tox cache
-        if: steps.tox-cache.outputs.cache-hit != 'true'
-        run: find ~/.cache/pip -name '__pycache__' -exec rm -rf {} +
 
   test:
     name: Molecule test
@@ -95,12 +90,11 @@ jobs:
         with:
           python-version: ${{ vars.python_version }}
 
-      - name: Tox cache
-        id: tox-cache
-        uses: actions/cache@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.0.1
         with:
-          path: ~/.cache/pip
-          key: tox-${{ hashFiles('requirements/tox.txt') }}-py${{ steps.setup-python.outputs.python-version}}
+          enable-cache: true
+          cache-dependency-glob: requirements/tox.txt
 
       - name: Molecule cache
         id: molecule-cache
@@ -118,7 +112,7 @@ jobs:
           platforms: ${{ matrix.architecture }}
 
       - name: Install tox
-        run: pip3 install --no-compile -r requirements/tox.txt
+        run: uv pip install --system --no-compile -r requirements/tox.txt
 
       - name: Molecule test
         run: tox --colored=yes run -e ansible-${{ matrix.ansible-version }} -- --scenario-name=${{ matrix.molecule-scenario }}
@@ -126,10 +120,6 @@ jobs:
       - name: Compact Molecule cache
         if: steps.molecule-cache.outputs.cache-hit != 'true'
         run: find .tox -name '__pycache__' -exec rm -rf {} +
-
-      - name: Compact tox cache
-        if: steps.tox-cache.outputs.cache-hit != 'true'
-        run: find ~/.cache/pip -name '__pycache__' -exec rm -rf {} +
 
   test-all:
     if: ${{ always() }}

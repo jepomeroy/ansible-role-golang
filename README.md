@@ -18,7 +18,7 @@ Role to download and install the [Go language SDK](https://golang.org/).
 
 ## Requirements
 
-- Ansible Core >= 2.12
+- Ansible Core >= 2.16
 
 - Linux Distribution (see tested versions below)
 
@@ -110,9 +110,11 @@ This project uses the following tooling:
 - [Testinfra](http://testinfra.readthedocs.io/) for testing the changes on the
   remote
 - [pytest](http://docs.pytest.org/) the testing framework
-- [Tox](https://tox.wiki/en/latest/) manages Python virtual
+- [Tox](https://tox.wiki/en/latest/) (with
+  [tox-uv](https://github.com/tox-dev/tox-uv)) manages Python virtual
   environments for linting and testing
-- [pip-tools](https://github.com/jazzband/pip-tools) for managing dependencies
+- [uv](https://docs.astral.sh/uv/) for managing dependencies and compiling
+  locked, hashed requirements files
 
 A Visual Studio Code
 [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) is
