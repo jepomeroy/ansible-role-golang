@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.15.0] - 2026-08-22
+
+### Changes
+
+- Merge pull request #44 from jepomeroy/update-golang-checksums-20260822-001529
+- feat: add Go version checksums
+- docs: update CHANGELOG for 0.14.0
+
+## Go SDK Versions
+
+### New Versions Added
+
+
+### Summary
+
+- **New versions**: 9
+- **Updated versions**: 0
+
+
 ## [0.14.0] - 2026-08-21
 
 ### Changes
