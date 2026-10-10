@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.17.0] - 2026-10-10
+
+### Changes
+
+- Merge pull request #48 from jepomeroy/update-golang-checksums-20261010-044418
+- feat: add Go version checksums
+- Merge pull request #47 from jepomeroy/dependabot/github_actions/astral-sh/setup-uv-10.2.0
+- chore(deps): bump astral-sh/setup-uv from 10.1.0 to 10.2.0
+- Merge pull request #46 from jepomeroy/dependabot/github_actions/astral-sh/setup-uv-10.1.0
+- chore(deps): bump astral-sh/setup-uv from 10.0.1 to 10.1.0
+- docs: update CHANGELOG for 0.16.0
+
+## Go SDK Versions
+
+### New Versions Added
+
+
+### Summary
+
+- **New versions**: 6
+- **Updated versions**: 0
+
+
 ## [0.16.0] - 2026-09-08
 
 ### Changes
