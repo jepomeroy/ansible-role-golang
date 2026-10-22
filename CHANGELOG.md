@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.17.1] - 2026-10-22
+
+### Changes
+
+- Merge pull request #50 from jepomeroy/dependabot/pip/requirements/pip-6b89db7397
+- chore(deps): bump the pip group across 1 directory with 5 updates
+- Merge pull request #49 from jepomeroy/dependabot/github_actions/astral-sh/setup-uv-10.3.0
+- chore(deps): bump astral-sh/setup-uv from 10.2.0 to 10.3.0
+- docs: update CHANGELOG for 0.17.0
+
+## Go SDK Versions
+
+No Go SDK version changes in this release.
+
+### Summary
+
+- **New versions**: 0
+- **Updated versions**: 0
+
+
 ## [0.17.0] - 2026-10-10
 
 ### Changes
