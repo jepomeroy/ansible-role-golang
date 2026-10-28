@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.18.1] - 2026-10-28
+
+### Changes
+
+- Merge pull request #54 from jepomeroy/dependabot/pip/requirements/pip-b03a6c9333
+- chore(deps): bump the pip group across 1 directory with 2 updates
+- docs: update CHANGELOG for 0.18.0
+
+## Go SDK Versions
+
+No Go SDK version changes in this release.
+
+### Summary
+
+- **New versions**: 0
+- **Updated versions**: 0
+
+
 ## [0.18.0] - 2026-10-28
 
 ### Changes
