@@ -17,9 +17,9 @@ attrs==25.4.0 \
     # via
     #   jsonschema
     #   referencing
-bracex==2.6 \
-    --hash=sha256:0b0049264e7340b3ec782b5cb99beb325f36c3782a32e36e876452fd49a09952 \
-    --hash=sha256:98f1347cd77e22ee8d967a30ad4e310b233f7754dbf31ff3fceb76145ba47dc7
+bracex==3.2.4 \
+    --hash=sha256:82e9e738b63fca213c33211d30b0b1ca330896a1091736e78da2c1bcda93ab30 \
+    --hash=sha256:c1e67eb59f81445dee15b2c588b7c81352b697cfbd6c4931a2943ea6b71eb5ea
     # via wcmatch
 certifi==2026.10.19 \
     --hash=sha256:035c1e85572b141bf1c3a3eff0e33a8eb74917522f2559075ff8d2fea780a1ae \
@@ -740,7 +740,7 @@ urllib3==2.8.0 \
     # via
     #   docker
     #   requests
-wcmatch==10.1 \
-    --hash=sha256:5848ace7dbb0476e5e55ab63c6bbd529745089343427caa5537f230cc01beb8a \
-    --hash=sha256:f11f94208c8c8484a16f4f48638a85d771d9513f4ab3f37595978801cb9465af
+wcmatch==11.2 \
+    --hash=sha256:1605bde546fbde4c063628c7d89eda486909fd4337e51d73a873987fbcb2554c \
+    --hash=sha256:952bab83c75c233836007a69550a3a8753cf06964c1eb3b84ff11ad5bff1c272
     # via molecule
